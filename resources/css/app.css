@@ -1,0 +1,305 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-brand: #182e65;
+}
+
+/* Choices.js — قوائم منسدلة */
+.choices {
+    margin-bottom: 0;
+}
+
+.choices__inner {
+    min-height: 3rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid #cbd5e1;
+    background-color: #fff;
+    font-size: 0.875rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.choices.is-focused .choices__inner,
+.choices.is-open .choices__inner {
+    border-color: #182e65;
+    box-shadow: 0 0 0 3px rgb(24 46 101 / 0.15);
+}
+
+.choices__list--dropdown,
+.choices__list[aria-expanded] {
+    border-radius: 0.75rem;
+    border: 1px solid #e2e8f0;
+    margin-top: 0.35rem;
+    box-shadow: 0 10px 25px rgb(15 23 42 / 0.12);
+    z-index: 30;
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted,
+.choices__list[aria-expanded] .choices__item--selectable.is-highlighted {
+    background-color: rgb(24 46 101 / 0.08);
+    color: #182e65;
+}
+
+.choices[data-type*='select-one'] .choices__input {
+    background-color: #fff;
+    margin-bottom: 0;
+    padding: 0.5rem 0.75rem;
+}
+
+.choices__placeholder {
+    color: #94a3b8;
+    opacity: 1;
+}
+
+.choices.is-disabled .choices__inner {
+    background-color: #f1f5f9;
+    cursor: not-allowed;
+}
+
+.choices[data-type*='select-one'] .choices__inner {
+    padding-right: 1rem;
+    padding-left: 2.5rem;
+}
+
+.choices[data-type*='select-one']::after {
+    left: 1rem;
+    right: auto;
+    border-color: #64748b transparent transparent;
+    margin-top: -2px;
+}
+
+.choices.is-open[data-type*='select-one']::after {
+    border-color: transparent transparent #64748b;
+    margin-top: -8px;
+}
+
+/* صفحة نتيجة الدفع */
+.payment-page {
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-color: #182e65;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.payment-page__container {
+    width: 100%;
+    max-width: 32rem;
+}
+
+.payment-page__logo {
+    display: block;
+    margin: 0 auto 1.5rem;
+    height: 4.5rem;
+    width: auto;
+}
+
+.payment-card {
+    background: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgb(0 0 0 / 0.2);
+}
+
+.payment-card__status {
+    padding: 1.75rem 1.25rem;
+    text-align: center;
+}
+
+.payment-card__status--success {
+    background: #ecfdf5;
+}
+
+.payment-card__status--failed {
+    background: #fef2f2;
+}
+
+.payment-card__icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.payment-card__icon--success {
+    background: #d1fae5;
+    color: #059669;
+}
+
+.payment-card__icon--failed {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.payment-card__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.payment-card__title--success { color: #065f46; }
+.payment-card__title--failed { color: #991b1b; }
+
+.payment-card__subtitle {
+    margin: 0.5rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.payment-card__subtitle--success { color: #047857; }
+.payment-card__subtitle--failed { color: #b91c1c; }
+
+.payment-card__section {
+    padding: 1.25rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+.payment-card__heading {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #182e65;
+    margin: 0 0 1rem;
+}
+
+.payment-details {
+    display: grid;
+    gap: 0.875rem;
+}
+
+.payment-details--grid {
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 480px) {
+    .payment-details--grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.payment-detail__label {
+    font-size: 0.8125rem;
+    color: #64748b;
+    margin-bottom: 0.25rem;
+}
+
+.payment-detail__value {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #0f172a;
+    word-break: break-word;
+}
+
+.payment-detail__value--mono {
+    font-family: ui-monospace, monospace;
+    font-size: 0.75rem;
+}
+
+.payment-detail__value--muted {
+    font-weight: 500;
+    color: #64748b;
+}
+
+.payment-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+@media (min-width: 480px) {
+    .payment-row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .payment-row .payment-detail__value {
+        text-align: left;
+        max-width: 60%;
+    }
+}
+
+.payment-badge {
+    display: inline-flex;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.payment-badge--success {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.payment-badge--failed {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.payment-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.75rem;
+    margin-top: 0.75rem;
+    border-top: 1px solid #f1f5f9;
+    gap: 1rem;
+}
+
+.payment-total__label {
+    font-weight: 700;
+    color: #182e65;
+}
+
+.payment-total__amount {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #182e65;
+    white-space: nowrap;
+}
+
+.payment-card__footer {
+    padding: 1.25rem;
+    background: #f8fafc;
+    border-top: 1px solid #f1f5f9;
+}
+
+.payment-btn {
+    display: block;
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    border-radius: 0.75rem;
+    background: #182e65;
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.15s ease;
+}
+
+.payment-btn:hover {
+    background: #122348;
+}
+
+.payment-page__copy {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: rgb(255 255 255 / 0.6);
+}

@@ -1,0 +1,305 @@
+.list-inline-item {
+    cursor: pointer;
+}
+
+.parsley-errors-list li {
+    list-style: none;
+    color: red;
+    text-align: center;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice,
+.select2-container--default .select2-results__option[aria-selected=true] {
+    background-color: #182e65 !important;
+}
+
+.select2-dropdown {
+    z-index: 999999999999;
+}
+
+.dropzone .dz-image img {
+    width: 100%;
+}
+
+.btn-search {
+    margin-top: 8px;
+}
+.pl-0 {
+    padding-left: 0 !important;
+}
+
+.is-invalid .select2-container .select2-selection--multiple {
+    border-color: #f06548 !important;
+}
+
+.display-size-guide {
+    position: absolute;
+    right: 12px;
+    border-bottom: 1px dashed #182e65;
+}
+
+.permissions_card .permissions_header {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+}
+
+.permissions_card.has-error {
+    border: 1px solid #e73d4a;
+}
+
+.permissions_card .permissions_header .selected_permissions {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.sm_section_permission {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.permissions_card h4 {
+    color: #182e65;
+    font-size: 16px;
+}
+
+.sm_section_permission .accordion-button {
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.sm_section_permission .accordion-button:after {
+    display: none;
+}
+
+.sm_section_permission .accordion {
+    margin-bottom: 20px;
+}
+
+.selectBoxPermission {
+    position: absolute;
+    right: 15px;
+    width: 15px;
+    height: 15px;
+    margin-top: 0;
+}
+
+.permission_box {
+    border: 1px dashed #ccc;
+    margin-bottom: 13px;
+    position: relative;
+}
+
+.permission_box label {
+    margin-bottom: 0;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.permission_box input {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    width: 14px;
+    height: 14px;
+}
+.disabled-notification {
+    position: absolute;
+    bottom: -83%;
+    padding: 2px 5px;
+    background-color: #ef6647;
+    color: #fff;
+    border-radius: 5px;
+    z-index: 9;
+    font-size: 12px;
+}
+.badge-soft-black {
+    background-color: #000;
+}
+
+/* حالات الطلب */
+.status-paid,
+.status-preparing,
+.status-delivered,
+.status-failed,
+.status-cancelled,
+.status-default {
+    color: #fff !important;
+    border: none;
+}
+
+.status-paid {
+    background-color: #ea580c !important;
+}
+
+.status-paid:hover,
+.status-paid:focus,
+.status-paid.show {
+    background-color: #c2410c !important;
+    color: #fff !important;
+}
+
+.status-preparing {
+    background-color: #2563eb !important;
+}
+
+.status-preparing:hover,
+.status-preparing:focus,
+.status-preparing.show {
+    background-color: #1d4ed8 !important;
+    color: #fff !important;
+}
+
+.status-delivered {
+    background-color: #16a34a !important;
+}
+
+.status-delivered:hover,
+.status-delivered:focus,
+.status-delivered.show {
+    background-color: #15803d !important;
+    color: #fff !important;
+}
+
+.status-failed {
+    background-color: #dc2626 !important;
+}
+
+.status-cancelled,
+.status-default {
+    background-color: #64748b !important;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.status-dot.status-paid { background-color: #ea580c; }
+.status-dot.status-preparing { background-color: #2563eb; }
+.status-dot.status-delivered { background-color: #16a34a; }
+.status-dot.status-default { background-color: #64748b; }
+
+.badge.status-paid,
+.badge.status-preparing,
+.badge.status-delivered,
+.badge.status-failed,
+.badge.status-cancelled,
+.badge.status-default {
+    font-weight: 600;
+    padding: 0.45em 0.75em;
+}
+
+.dashboard-rank {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    min-width: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.dashboard-payment-chart {
+    max-width: 220px;
+}
+
+.dashboard-stat-card {
+    position: relative;
+    border: 0;
+    box-shadow: 0 1px 2px rgba(56, 65, 74, 0.08);
+}
+
+.dashboard-stat-card::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: 4px;
+    border-radius: 0 4px 4px 0;
+}
+
+.dashboard-stat-card--orders::before { background: linear-gradient(180deg, #405189, #6b84c7); }
+.dashboard-stat-card--revenue::before { background: linear-gradient(180deg, #0ab39c, #38d9c4); }
+.dashboard-stat-card--payments::before { background: linear-gradient(180deg, #299cdb, #5eb8ef); }
+
+.dashboard-stat-card .card-body {
+    padding: 1.35rem 1.5rem 1.25rem;
+}
+
+.dashboard-stat-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+}
+
+.dashboard-stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--vz-heading-color, #212529);
+    margin-bottom: 0;
+}
+
+.dashboard-stat-currency {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #878a99;
+    margin-inline-start: 0.25rem;
+}
+
+.dashboard-stat-icon-wrap {
+    position: absolute;
+    top: 1.1rem;
+    inset-inline-end: 1.25rem;
+}
+
+.dashboard-stat-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.75rem;
+    font-size: 1.5rem;
+}
+
+.dashboard-stat-badge {
+    font-weight: 500;
+    padding: 0.45em 0.75em;
+}
+
+.dashboard-stat-footer {
+    min-height: 1.75rem;
+}
+
+.dashboard-stat-mini {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.dashboard-stat-payment-bar .progress {
+    height: 6px;
+    background-color: rgba(240, 101, 72, 0.15);
+}
+
+.dashboard-stat-payment-bar .progress-bar {
+    border-radius: 999px;
+}
+
+.video_box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
