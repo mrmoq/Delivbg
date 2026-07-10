@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1
-
 FROM node:22-bookworm-slim AS assets
 
 WORKDIR /app
@@ -14,70 +12,93 @@ COPY public ./public
 RUN npm run build
 
 
-FROM php:8.3-fpm-bookworm AS production
+FROM php:8.3-fpm
 
-ENV APP_ENV=production \
-    APP_DEBUG=false \
-    LOG_CHANNEL=stderr \
-    PHP_OPCACHE_VALIDATE_TIMESTAMPS=0
+ENV PORT=3000
 
 WORKDIR /var/www/html
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
+RUN apt-get update && apt-get install -y \
     nginx \
+    git \
+    unzip \
+    curl \
+    gettext-base \
     supervisor \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libpng-dev \
+    default-mysql-client \
     libzip-dev \
-    libxml2-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
     libonig-dev \
+    libxml2-dev \
+    libicu-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j"$(nproc)" \
+    && docker-php-ext-install \
+        pdo_mysql \
+        mbstring \
+        zip \
+        exif \
+        pcntl \
         bcmath \
         gd \
-        mbstring \
+        intl \
         opcache \
-        pcntl \
-        pdo_mysql \
-        zip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+RUN { \
+    echo 'opcache.enable=1'; \
+    echo 'opcache.memory_consumption=256'; \
+    echo 'opcache.max_accelerated_files=20000'; \
+    echo 'opcache.validate_timestamps=0'; \
+    echo 'upload_max_filesize=100M'; \
+    echo 'post_max_size=100M'; \
+    echo 'memory_limit=512M'; \
+    echo 'max_execution_time=300'; \
+} > /usr/local/etc/php/conf.d/custom.ini
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 COPY composer.json composer.lock ./
+
 RUN composer install \
     --no-dev \
     --no-interaction \
-    --no-scripts \
     --prefer-dist \
-    --optimize-autoloader
-
-COPY docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
-COPY docker/php/uploads.ini /usr/local/etc/php/conf.d/uploads.ini
-COPY docker/nginx/default.conf /etc/nginx/sites-available/default
-COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
-
-RUN ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default \
-    && rm -f /etc/nginx/sites-enabled/default.bak \
-    && chmod +x /usr/local/bin/entrypoint.sh
+    --optimize-autoloader \
+    --no-scripts \
+    --ignore-platform-reqs
 
 COPY --from=assets /app/public/build ./public/build
 
 COPY . .
 
+RUN composer dump-autoload --optimize --no-interaction --no-scripts
+
 RUN cp .env.example .env \
-    && composer dump-autoload --optimize --no-interaction \
-    && php artisan package:discover --ansi --no-interaction \
+    && php artisan package:discover --ansi --no-interaction
+
+RUN mkdir -p \
+    storage/framework/cache/data \
+    storage/framework/views \
+    storage/framework/sessions \
+    storage/framework/testing \
+    storage/logs \
+    bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache \
-    && chmod -R ug+rwx storage bootstrap/cache
+    && chmod -R 775 storage bootstrap/cache
 
-EXPOSE 80
+COPY deploy/nginx.conf /etc/nginx/sites-available/default.template
+COPY deploy/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY deploy/entrypoint.sh /usr/local/bin/entrypoint.sh
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
-    CMD curl -f http://127.0.0.1/up || exit 1
+RUN chmod +x /usr/local/bin/entrypoint.sh \
+    && rm -f /etc/nginx/sites-enabled/default
+
+EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+    CMD curl -fsS -o /dev/null "http://127.0.0.1:${PORT:-3000}/up" || exit 1
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
