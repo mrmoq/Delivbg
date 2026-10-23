@@ -73,7 +73,10 @@ RUN composer install \
 COPY --from=assets /app/public/build ./public/build
 
 COPY . .
-
+# Disable PHP session upload progress
+RUN printf '%s\n' 'session.upload_progress.enabled = Off' \
+    > /usr/local/etc/php/conf.d/zzzz-disable-session-upload-progress.ini
+    
 RUN composer dump-autoload --optimize --no-interaction --no-scripts
 
 RUN cp .env.example .env \
